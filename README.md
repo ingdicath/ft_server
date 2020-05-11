@@ -2,7 +2,7 @@
 
 ## Description
 
-This project is aimed to introduce to system administration. It will make aware of the importance of using scripts to automate tasks. For that, it will discover the "docker" technology and use it to install a complete web server. This server will run multiples services: Wordpress, phpMyAdmin, and a SQL database.
+_This project is aimed to introduce to system administration. It will make aware of the importance of using scripts to automate tasks. For that, it will discover the "docker" technology and use it to install a complete web server. This server will run multiples services: Wordpress, phpMyAdmin, and a SQL database._
 
 ## Some terms about Docker
 
@@ -12,12 +12,18 @@ This project is aimed to introduce to system administration. It will make aware 
 
 - container - the equivalent of creating a VM from a snapshot, but again, way more lightweight. Containers run the applications themselves.
 
+## Prerequisites 📋
+
+## Installing 🔧
+
+
 ## Useful links
 
-- https://beauvais.me/creer-serveur-web-nginx-php7-maria-db-mysql-debian-9-stretch/ -- tutorials
-- https://harm-smits.github.io/42docs/projects/ft_server
-- https://docs.docker.com/develop/develop-images/dockerfile_best-practices/
-- https://medium.com/codingthesmartway-com-blog/docker-beginners-guide-part-1-images-containers-6f3507fffc98
+- [Tutorial ngnix](https://beauvais.me/creer-serveur-web-nginx-php7-maria-db-mysql-debian-9-stretch/)
+- [Tutorial docker](https://medium.com/codingthesmartway-com-blog/docker-beginners-guide-part-1-images-containers-6f3507fffc98)
+- [Tips about the project](https://harm-smits.github.io/42docs/projects/ft_server)
+- [Best practices](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/)
+
 
 ## Notes
 
@@ -49,23 +55,24 @@ When you find de address, just put this in your browser and add the port:
 192.168.99.100:80
 
 
-#### EXAMPLE (https://github.com/nginxinc/docker-nginx/issues/54)
+#### EXAMPLE (https://github.com/nginxinc/docker-nginx/issues/54) 🛠️
 
+```
 $ docker run -p 8080:80 -id nginx
+```
 
+```
 $ docker ps
+```
 
 CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                           NAMES
 903923b67a8a        nginx               "nginx -g 'daemon off"   5 seconds ago       Up 5 seconds        443/tcp, 0.0.0.0:8080->80/tcp   reverent_wing
 
 Important: For docker-machine you can try running open "http://$(docker-machine ip default):8080" or whatever your docker machine name is.
 
+	```
 	$ docker-machine ip default
+	```
 	192.168.99.100
 
 So, accessing http://192.168.99.100:8080 showed the page.
-
-
-
-
-
