@@ -24,6 +24,45 @@ _This project is aimed to introduce to system administration. It will make aware
 - [Tips about the project](https://harm-smits.github.io/42docs/projects/ft_server)
 - [Best practices](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/)
 
+## Commands
+
+- See images status: created, exited
+```
+$ docker ps -a
+```
+- Stop containers:
+```
+$ docker stop (ID or container name)
+```
+- Remove containers:
+```
+$ docker rm (ID or container name)
+```
+
+- Removing All Unused Objects - containers
+
+The docker system prune command will remove all stopped containers, all dangling images, and all unused networks:
+```
+$ docker system prune
+```
+Output
+```
+WARNING! This will remove:
+        - all stopped containers
+        - all networks not used by at least one container
+        - all dangling images
+        - all build cache
+Are you sure you want to continue? [y/N]
+```
+
+- Remove an image
+```
+$ docker image rm (ID or image name)
+```
+- Listing images
+```
+$ docker images
+```
 
 ## Access to localhost ngnix
 
