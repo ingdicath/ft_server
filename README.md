@@ -6,11 +6,11 @@ This project is aimed to introduce to system administration. It will make aware 
 
 ## Some terms about Docker
 
-### dockerfile - a file that describes your steps in order to create a Docker image. It's like a recipe with all ingredients and steps necessary in making your dish.
+- dockerfile - a file that describes your steps in order to create a Docker image. It's like a recipe with all ingredients and steps necessary in making your dish.
 
-### image - the snapshot of a virtual machine, but way more lightweight. Images are the building-blocks of the containers.
+- image - the snapshot of a virtual machine, but way more lightweight. Images are the building-blocks of the containers.
 
-### container - the equivalent of creating a VM from a snapshot, but again, way more lightweight. Containers run the applications themselves.
+- container - the equivalent of creating a VM from a snapshot, but again, way more lightweight. Containers run the applications themselves.
 
 ## Useful links
 
