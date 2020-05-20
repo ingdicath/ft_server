@@ -33,10 +33,12 @@ The image can then be deployed to any Docker environment and executable as a con
 ## Useful links 
 
 - [Tutorial docker](https://medium.com/codingthesmartway-com-blog/docker-beginners-guide-part-1-images-containers-6f3507fffc98)
+- [Docker - differences between RUN vs CMD](https://goinbigdata.com/docker-run-vs-cmd-vs-entrypoint/)
 - [Tips about the project](https://harm-smits.github.io/42docs/projects/ft_server)
 - [Docker commands](https://www.educative.io/edpresso/how-do-you-write-a-dockerfile)
 - [Tutorial ngnix](https://beauvais.me/creer-serveur-web-nginx-php7-maria-db-mysql-debian-9-stretch/)
 - [Best practices](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/)
+
 
 ## _DOCKER_
 
