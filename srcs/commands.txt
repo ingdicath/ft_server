@@ -1,0 +1,13 @@
+**In case disk is full
+
+mkdir -p ~/goinfre/docker
+rm -rf ~/Library/Containers/com.docker.docker
+ln -s ~/goinfre/docker ~/Library/Containers/com.docker.docker
+
+
+**Basic commands
+
+docker build -t <name> .
+docker run -it --rm --name <name> -p 80:80 -p 443:443 nginx
+
+docker exec -it <name> bash

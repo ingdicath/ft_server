@@ -37,8 +37,20 @@ The image can then be deployed to any Docker environment and executable as a con
 - [Tips about the project](https://harm-smits.github.io/42docs/projects/ft_server)
 - [Docker commands](https://www.educative.io/edpresso/how-do-you-write-a-dockerfile)
 - [Tutorial ngnix](https://beauvais.me/creer-serveur-web-nginx-php7-maria-db-mysql-debian-9-stretch/)
+- [Tutorial](https://www.digitalocean.com/community/tutorials/how-to-install-linux-nginx-mariadb-php-lemp-stack-on-debian-10)
 - [Best practices](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/)
+- [autoindex](http://nginx.org/en/docs/http/ngx_http_autoindex_module.html)
+- [Diferrences between MySQL and MariaDB](https://www.guru99.com/mariadb-vs-mysql.html)
+- [Redirect HTTP to HTTPS in Nginx](https://serversforhackers.com/c/redirect-http-to-https-nginx)
+- [Create a certificate](https://deliciousbrains.com/ssl-certificate-authority-for-local-https-development/)
+- 
 
+## _LINUX_
+
+- _wget_: retrieves files from the web
+- _-y --yes_: meaning say yes to all procedure
+
+### Commands
 
 ## _DOCKER_
 
