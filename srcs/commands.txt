@@ -9,5 +9,4 @@ ln -s ~/goinfre/docker ~/Library/Containers/com.docker.docker
 
 docker build -t <name> .
 docker run -it --rm --name <name> -p 80:80 -p 443:443 nginx
-
-docker exec -it <name> bash
+docker exec -it <name> bash 

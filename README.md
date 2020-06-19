@@ -208,6 +208,67 @@ CONTAINER ID        IMAGE               COMMAND                  CREATED        
 
 touch on Mac is 'echo $null >> index.html' on Windows
 
+## Php
+
+
+
+https://www.itzgeek.com/how-tos/linux/debian/how-to-install-php-7-3-7-2-7-1-on-debian-10-debian-9-debian-8.html
+
+
+The LEMP software stack is a group of software that can be used to serve dynamic web pages and web applications. The name “LEMP” is an acronym that describes a Linux operating system, with an (E)Nginx web server. The backend data is stored in a MariaDB database and the dynamic processing is handled by PHP.
+
+
+- [Packages](https://packages.debian.org/source/sid/php7.4)
+- [PHP Manual](https://www.php.net/manual/es/index.php)
+
+_No needed for this project_
+- *php7.4-bcmath*: Bcmath module for PHP - BCMath Arbitrary Precision Mathematics (No needed for this project)
+- *php7.4-dba*: DBA module for PHP
+- *php7.4-bz2*: bzip2 module for PHP - The bzip2 functions are used to transparently read and write bzip2 (.bz2) compressed files.(No needed for this project)
+- *php7.4-cgi*: server-side, HTML-embedded scripting language (CGI binary)
+- *php7.4-dev*:Files for PHP7.4 module development
+- *php7.4-enchant*: Enchant module for PHP -  Enchant steps in to provide uniformity and conformity on top of all spelling libraries, and implement certain features that may be lacking in any individual provider library.
+
+
+
+- *php7.4-cli*: command-line interpreter for the PHP scripting language
+- *php7.4*: server-side, HTML-embedded scripting language (metapackage)
+- *php7.4-common*: documentation, examples and common module for PHP
+- *php7.4-curl*: CURL module for PHP - PHP supports libcurl, that allows you to connect and communicate to many different types of servers with many different types of protocols. libcurl currently supports the http, https, ftp, gopher, telnet, dict, file, and ldap protocols. libcurl also supports HTTPS certificates, HTTP POST, HTTP PUT, FTP uploading (this can also be done with PHP's ftp extension), HTTP form based upload, proxies, cookies, and user+password authentication.
+- *php7.4-fpm*: server-side, HTML-embedded scripting language (FPM-CGI binary) - FPM (FastCGI Process Manager) is an alternative PHP FastCGI implementation with some additional features (mostly) useful for heavy-loaded sites.
+- *php7.4-gd*: GD module for PHP -  Graphics draw (images). GD is an open source code library for the dynamic creation of images
+- *php7.4-gmp*: GMP module for PHP
+- *php7.4-imap*: IMAP module for PHP
+- *php7.4-interbase*: Interbase module for PHP
+- *php7.4-intl*: Internationalisation module for PHP
+- *php7.4-json*: JSON module for PHP
+- *php7.4-ldap*: LDAP module for PHP
+- *php7.4-mbstring*: MBSTRING module for PHP
+- *php7.4-mysql*: MySQL module for PHP
+- *php7.4-odbc*:ODBC module for PHP
+- *php7.4-opcache*: Zend OpCache module for PHP
+- *php7.4-pgsql*: PostgreSQL module for PHP
+- *php7.4-phpdbg*: server-side, HTML-embedded scripting language (PHPDBG binary)
+- *php7.4-pspell*: pspell module for PHP
+- *php7.4-readline*: readline module for PHP
+- *php7.4-snmp*: SNMP module for PHP
+- *php7.4-soap*: SOAP module for PHP - SOAP (Simple Object Access Protocol) is a messaging protocol specification for exchanging structured information in the implementation of _web services_ in computer networks. Its purpose is to provide extensibility, neutrality, verbosity and independence.
+- *php7.4-sqlite3*: SQLite3 module for PHP
+- *php7.4-sybase*: Sybase module for PHP
+- *php7.4-tidy*: tidy module for PHP
+- *php7.4-xml*: DOM, SimpleXML, XML, and XSL module for PHP
+- *php7.4-xmlrpc*: XMLRPC-EPI module for PHP
+- *php7.4-xsl*: XSL module for PHP (dummy)
+- *php7.4-zip*: Zip module for PHP
+
+
+debian:buster
+Buster is the development codename for Debian 10. It is the current stable distribution.
+
+
+https://docs.phpmyadmin.net/en/latest/config.html#config-examples
+
+
 ## Eval
 
 - Verify if you can run the container with "docker run xxx" without problems. (xxx is the name of the docker you've just built)
