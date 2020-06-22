@@ -1,15 +1,3 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         ::::::::             #
-#    Dockerfile                                         :+:    :+:             #
-#                                                      +:+                     #
-#    By: dsalaman <dsalaman@student.codam.nl>         +#+                      #
-#                                                    +#+                       #
-#    Created: 2020/05/20 14:54:55 by dsalaman      #+#    #+#                  #
-#    Updated: 2020/06/18 18:56:27 by anonymous     ########   odam.nl          #
-#                                                                              #
-# **************************************************************************** #
-
 # Using official debian image as a parent image
 FROM debian:buster
 
@@ -20,34 +8,57 @@ RUN apt-get update
 RUN apt-get -y install \
     nginx \
     mariadb-server \
-    wget \
     sendmail \
-    php7.3 php-mysql php-fpm php-cli php-mbstring php-curl php-gd php-intl php-soap php-xml php-xmlrpc php-zip \
-    php7.3-fpm php7.3-cli php7.3-mysql php7.3-gd php7.3-imagick php7.3-recode php7.3-tidy php7.3-xmlrpc php7.3-mbstring 
+    php7.4-fpm php7.4-mysql php7.4-cli php7.4-curl php7.4-gd php7.4-xml php7.4-mbstring php7.4-zip php7.4-soap php7.4-tidy php7.4-common 
 
-COPY ./srcs/nginx.config /etc/nginx/sites-available/localhost
+#Website setup
+RUN mkdir -p /var/www/pajarito/wordpress/homepage
+COPY /srcs/index.html /var/www/pajarito/wordpress/homepage
+
+#Nginx setup
+COPY ./srcs/nginx.config /etc/nginx/sites-available/pajarito
 COPY ./srcs/private.key /etc/nginx/ssl/private.key
 COPY ./srcs/certificate.pem /etc/nginx/ssl/certificate.pem
+RUN ln -s /etc/nginx/sites-available/pajarito /etc/nginx/sites-enabled/pajarito && nginx -t
 
-RUN ln -s /etc/nginx/sites-available/localhost /etc/nginx/sites-enabled/localhost && nginx -t
+# phpmyadmin setup
+WORKDIR /var/www/pajarito
+RUN tar -xf /srcs/phpMyAdmin-5.0.2-english.tar.gz && rm phpMyAdmin-5.0.2-english.tar.gz
+RUN mv phpMyAdmin-5.0.2-english phpmyadmin
+COPY ./srcs/config.inc.php phpmyadmin
 
-# Configure phpmyadmin
-WORKDIR /var/www/html
-RUN tar -xf phpMyAdmin-5.0.2-english.tar.gz
-RUN rm phpMyAdmin-5.0.2-english.tar.gz
+# mysql setup
+RUN service mysql start; \
+	echo "CREATE DATABASE pajarito_db;" | mysql -u root; \
+	echo "GRANT ALL PRIVILEGES ON *.* TO 'diana'@'pajarito' IDENTIFIED BY '12345';" | mysql -u root; \ 
+	echo "FLUSH PRIVILEGES" | mysql -u root
 
-# Install Wordpress
+RUN	service mysql start; \
+	mysql -uroot mysql; \
+	mysqladmin password "guest"; \
+		echo "CREATE DATABASE wordpress;" | mysql -u root;\
+		echo "FLUSH PRIVILEGES;" | mysql -u root
+
+# Wordpress setup
+WORKDIR /var/www/pajarito/wordpress
+COPY ./srcs/wp-config.php .
+COPY ./srcs/wp-cli.phar /usr/local/bin/wp
+RUN chmod +x wp-cli.phar
+RUN wp cli update
+RUN wp core download --allow-root
+RUN service mysql start
+
 
 https://wordpress.org/themes/sports-blog/
 https://downloads.wordpress.org/theme/sports-blog.1.0.5.zip
 
-# Install phpMyAdmin
-RUN apt-get -y install php7.3-fpm php-common php-mysql php-mbstring
+# Sizes setup
+RUN	sed -i '/upload_max_filesize/c upload_max_filesize = 20M' /etc/php/7.4/fpm/php.ini
+RUN	sed -i '/post_max_size/c post_max_size = 21M' /etc/php/7.4/fpm/php.ini
 
-
-
-
-# Configure permissions
+# Permissions setup
+RUN chown -R www-data:www-data /var/www
+RUN chmod 755 -R /var/www
 
 EXPOSE 80 443
 
