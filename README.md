@@ -272,6 +272,16 @@ nginx -t
 
 https://wordpress.org/support/article/editing-wp-config-php/
 
+- [debugging](https://wordpress.org/support/article/debugging-in-wordpress/)
+
+- Setting sizes limits
+
+Post_max_size is the maximum size for all POST body data. It doesn't matter if you're POSTing JSON or your DVD collection, this is all POST body data. Your file upload counts towards this limit. You should also be aware that if you are uploading multiple files, the total file size has to fit within this limit.
+
+upload_max_filesize is a maximum size only for files that are POSTed. Other types of POST body data are not subject to this limit.
+
+ - [Commands wp](https://www.sitepoint.com/wp-cli-introduction/) - (https://developer.wordpress.org/cli/commands/)
+
 ## Eval
 
 - Verify if you can run the container with "docker run xxx" without problems. (xxx is the name of the docker you've just built)
