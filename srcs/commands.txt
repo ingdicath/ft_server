@@ -7,8 +7,12 @@ ln -s ~/goinfre/docker ~/Library/Containers/com.docker.docker
 
 **Basic commands
 
-docker build -t <name> .
-docker run -it --rm --name <name> -p 80:80 -p 443:443 nginx
-docker exec -it <name> bash
+docker build -t <image_name> .
+docker run -it --rm --name <container_name> -p 80:80 -p 443:443 <image_name>
+docker exec -it <container_name> bash
 
 docker run -it debian bash // all in one
+
+** Turn autoindex off in interactive mode: 
+cd /etc/nginx/sites-available/ && sed -i 's/autoindex on/autoindex off/g' nginxconfig
+service nginx restart

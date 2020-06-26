@@ -32,25 +32,58 @@ The image can then be deployed to any Docker environment and executable as a con
 
 ## Useful links 
 
+### General
+
+- [Tips about the project](https://harm-smits.github.io/42docs/projects/ft_server)
+- [Tutorial how to create webserver](https://beauvais.me/creer-serveur-web-nginx-php7-maria-db-mysql-debian-9-stretch/)
+- [Tutorial LEMP](https://www.digitalocean.com/community/tutorials/how-to-install-linux-nginx-mariadb-php-lemp-stack-on-debian-10)
+
+
+### Docker
+
 - [Tutorial docker](https://medium.com/codingthesmartway-com-blog/docker-beginners-guide-part-1-images-containers-6f3507fffc98)
 - [Docker - differences between RUN vs CMD](https://goinbigdata.com/docker-run-vs-cmd-vs-entrypoint/)
-- [Tips about the project](https://harm-smits.github.io/42docs/projects/ft_server)
 - [Docker commands](https://www.educative.io/edpresso/how-do-you-write-a-dockerfile)
-- [Tutorial ngnix](https://beauvais.me/creer-serveur-web-nginx-php7-maria-db-mysql-debian-9-stretch/)
-- [Tutorial](https://www.digitalocean.com/community/tutorials/how-to-install-linux-nginx-mariadb-php-lemp-stack-on-debian-10)
 - [Best practices](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/)
+- [Another tutorial about Docker](https://kodekloud.com/courses/docker-for-the-absolute-beginner-hands-on/lectures/4554674) (o read yet)
+
+### MySQL
+
+- [Diferences between MySQL and MariaDB](https://www.guru99.com/mariadb-vs-mysql.html)
+
+### Ngnix
+
 - [autoindex](http://nginx.org/en/docs/http/ngx_http_autoindex_module.html)
-- [Diferrences between MySQL and MariaDB](https://www.guru99.com/mariadb-vs-mysql.html)
+
+
+### Certificates
+
 - [Redirect HTTP to HTTPS in Nginx](https://serversforhackers.com/c/redirect-http-to-https-nginx)
 - [Create a certificate](https://deliciousbrains.com/ssl-certificate-authority-for-local-https-development/)
-- 
+- [Create a certificate without passphrase](https://www.madboa.com/geek/openssl/#key-removepass)
+- [Explanation about commands SSL](https://www.tutorialspoint.com/unix_commands/genrsa.htm) - (https://www.openssl.org/docs/man1.0.2/man1/openssl-req.html)
+
 
 ## _LINUX_
 
 - _wget_: retrieves files from the web
 - _-y --yes_: meaning say yes to all procedure
 
-### Commands
+## _Certificates_
+
+- 1) Generate the private key with this command:
+
+```
+$ openssl genrsa -out myCA.key 2048
+```
+⚠️ Do not use this modifier '-des3' because it encrypts the private key. If encryption is used a pass phrase is prompted 
+
+
+-2) Type on the terminal:
+```
+$ openssl req -x509 -new -nodes -key myCA.key -sha256 -days 1825 -out myCA.pem
+```
+
 
 ## _DOCKER_
 
@@ -86,13 +119,21 @@ Are you sure you want to continue? [y/N]
 
 - Remove an image
 ```
-$ docker image rm (ID or image name)
+$ docker rmi (ID or image name)
 ```
 
 In this case, '-f' is forcing to stop the image if it were running.
 ```
 $ docker rmi -f (ID or image name)
 ```
+
+- Remove all the images
+
+```
+$ docker rmi $(docker images -a -q)
+```
+do not delete image that has dependent child images, or when it is referenced in multiple repositories
+
 
 - Listing images
 ```
@@ -106,7 +147,7 @@ $ docker start [ID or image name]
 
 - Running a command in a running container
 ```
-$ docker exec -it hola-pollo bash
+$ docker exec -it <container_name> bash
 ```
 Output
 ```
@@ -208,16 +249,17 @@ CONTAINER ID        IMAGE               COMMAND                  CREATED        
 
 touch on Mac is 'echo $null >> index.html' on Windows
 
-## Php
+## _PHP_
 
 https://www.itzgeek.com/how-tos/linux/debian/how-to-install-php-7-3-7-2-7-1-on-debian-10-debian-9-debian-8.html
 
 
 The LEMP software stack is a group of software that can be used to serve dynamic web pages and web applications. The name “LEMP” is an acronym that describes a Linux operating system, with an (E)Nginx web server. The backend data is stored in a MariaDB database and the dynamic processing is handled by PHP.
 
-
 - [Packages](https://packages.debian.org/source/sid/php7.4)
 - [PHP Manual](https://www.php.net/manual/es/index.php)
+
+### Extensions
 
 - *php7.4-bcmath*: Bcmath module for PHP - BCMath Arbitrary Precision Mathematics (No needed for this project)
 - *php7.4-dba*: DBA module for PHP
@@ -263,16 +305,13 @@ Buster is the development codename for Debian 10. It is the current stable distr
 
 https://docs.phpmyadmin.net/en/latest/config.html#config-examples
 
-This will tell Nginx to use the configuration next time it is reloaded. You can test your configuration for syntax errors by typing:
 
-```
-nginx -t
-```
-## Wordpress
+## _WORDPRESS_
 
-https://wordpress.org/support/article/editing-wp-config-php/
-
-- [debugging](https://wordpress.org/support/article/debugging-in-wordpress/)
+- [How to create manually wp_config file](https://wordpress.org/support/article/editing-wp-config-php/)
+- [How to start - wp-cli_phar file](https://make.wordpress.org/cli/handbook/guides/installing/)
+- [Debugging](https://wordpress.org/support/article/debugging-in-wordpress/)
+- [Commands wp](https://www.sitepoint.com/wp-cli-introduction/) - (https://developer.wordpress.org/cli/commands/)
 
 - Setting sizes limits
 
@@ -280,9 +319,10 @@ Post_max_size is the maximum size for all POST body data. It doesn't matter if y
 
 upload_max_filesize is a maximum size only for files that are POSTed. Other types of POST body data are not subject to this limit.
 
- - [Commands wp](https://www.sitepoint.com/wp-cli-introduction/) - (https://developer.wordpress.org/cli/commands/)
 
-## Eval
+
+
+## Eval 
 
 - Verify if you can run the container with "docker run xxx" without problems. (xxx is the name of the docker you've just built)
 
@@ -297,4 +337,5 @@ Nginx has the habily to show you an index page of the files existing in the root
 http://nginx.org/en/docs/http/ngx_http_autoindex_module.html 
 
 
-Basically you have a clean installed server. do everything you would do to install it on a new server. If you want terms to google: apt, aptitude, LAMP stack, Wordpress NGINX and Apache
+Basically you have a clean installed server. do everything you would do to install it on a new server. 
+If you want terms to google: apt, aptitude, LAMP stack, Wordpress NGINX and Apache

@@ -1,4 +1,4 @@
 echo "Initializing pajarito webserver"
 MYSQL_PWD='guest' mysqld &
-service php-fpm start
+service php7.3-fpm start
 nginx -g "daemon off;"
