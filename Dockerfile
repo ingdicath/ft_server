@@ -11,6 +11,11 @@ RUN apt-get -y install \
     sendmail \
     php-fpm php-mysql php-cli
 
+# website setup
+WORKDIR /var/www/pajarito/
+COPY ./srcs/index.html .
+COPY ./srcs/image ./image
+
 #Nginx setup
 COPY ./srcs/nginx.config /etc/nginx/sites-available/pajarito
 COPY ./srcs/private.key /etc/nginx/ssl/private.key
@@ -24,26 +29,22 @@ RUN service mysql start; \
     echo "FLUSH PRIVILEGES" | mysql -u root
 
 # phpmyadmin setup
-WORKDIR /var/www/html/pajarito/
+#WORKDIR /var/www/pajarito/
 COPY ./srcs/phpMyAdmin-5.0.2-english.tar.gz .
 RUN tar -xf phpMyAdmin-5.0.2-english.tar.gz && rm phpMyAdmin-5.0.2-english.tar.gz
 RUN mv phpMyAdmin-5.0.2-english phpmyadmin
 COPY ./srcs/config.inc.php phpmyadmin
-
-# website setup
-WORKDIR /var/www/html/pajarito/wordpress
-COPY ./srcs/index.html .
-COPY ./srcs/image/duck_404.jpg .
 
 # Wordpress setup
 COPY ./srcs/wp-cli.phar .
 RUN chmod +x wp-cli.phar
 RUN mv wp-cli.phar /usr/local/bin/wp
 RUN wp cli update
+WORKDIR /var/www/pajarito/wordpress
 RUN service mysql start && \
     wp core download --allow-root && \
     wp config create --allow-root --dbhost=localhost --dbname=pajarito_db --dbuser=diana --dbpass=12345 &&\
-	wp core install --allow-root --url=https://pajarito/wordpress --title="Welcome" --admin_name=diana --admin_password=12345 --admin_email=dianitasale@gmail.com &&\
+	wp core install --allow-root --url=https://localhost/wordpress --title="Welcome" --admin_name=diana --admin_password=12345 --admin_email=dianitasale@gmail.com &&\
 	chmod 664 wp-config.php &&\
 	wp theme --allow-root install https://downloads.wordpress.org/theme/sports-blog.1.0.5.zip &&\
 	wp theme --allow-root activate sports-blog
@@ -53,14 +54,13 @@ RUN sed -i 's/.*upload_max_filesize.*/upload_max_filesize = 20M/' /etc/php/7.3/f
 RUN sed -i 's/.*post_max_size.*/post_max_size = 20M/' /etc/php/7.3/fpm/php.ini
 
 # Access setup
-RUN chown -R www-data:www-data /var/www/*
-RUN chmod 755 -R /var/www/*
+RUN chown -R www-data:www-data /var/www/pajarito/*
+RUN chmod 755 -R /var/www/pajarito/*
 
-EXPOSE 80 443
+EXPOSE 80 443 465
 
 # Start program
 
-RUN echo "Initializing pajarito webserver"
 ENTRYPOINT service php7.3-fpm start && \
 	service nginx start && \
 	service mysql start && \
