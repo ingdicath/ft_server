@@ -29,7 +29,6 @@ RUN service mysql start; \
     echo "FLUSH PRIVILEGES" | mysql -u root
 
 # phpmyadmin setup
-#WORKDIR /var/www/pajarito/
 COPY ./srcs/phpMyAdmin-5.0.2-english.tar.gz .
 RUN tar -xf phpMyAdmin-5.0.2-english.tar.gz && rm phpMyAdmin-5.0.2-english.tar.gz
 RUN mv phpMyAdmin-5.0.2-english phpmyadmin
@@ -44,14 +43,9 @@ WORKDIR /var/www/pajarito/wordpress
 RUN service mysql start && \
     wp core download --allow-root && \
     wp config create --allow-root --dbhost=localhost --dbname=pajarito_db --dbuser=diana --dbpass=12345 &&\
-	wp core install --allow-root --url=https://localhost/wordpress --title="Welcome" --admin_name=diana --admin_password=12345 --admin_email=dianitasale@gmail.com &&\
+	wp core install --allow-root --url=https://localhost/wordpress --title="Welcome Pajarito" --admin_name=diana --admin_password=12345 --admin_email=dianitasale@gmail.com &&\
 	chmod 664 wp-config.php &&\
-	wp theme --allow-root install https://downloads.wordpress.org/theme/twentyseventeen.2.3.zip &&\
 	wp theme --allow-root activate twentyseventeen
-
-# Sizes setup
-RUN sed -i 's/.*upload_max_filesize.*/upload_max_filesize = 20M/' /etc/php/7.3/fpm/php.ini
-RUN sed -i 's/.*post_max_size.*/post_max_size = 20M/' /etc/php/7.3/fpm/php.ini
 
 # Access setup
 RUN chown -R www-data:www-data /var/www/pajarito/*
