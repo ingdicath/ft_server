@@ -51,7 +51,7 @@ RUN service mysql start && \
 RUN chown -R www-data:www-data /var/www/pajarito/*
 RUN chmod 755 -R /var/www/pajarito/*
 
-EXPOSE 80 443 465
+EXPOSE 80 443 25
 
 # Start program
 

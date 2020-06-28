@@ -319,10 +319,17 @@ Post_max_size is the maximum size for all POST body data. It doesn't matter if y
 
 upload_max_filesize is a maximum size only for files that are POSTed. Other types of POST body data are not subject to this limit.
 
+### Check for log errors
 
+```
+$ root@d44b14a29991:/# cd /var/log/nginx
+```
+Inside nginx folder, should be located a error.log file. Open to see the last lines typing:
+```
+$ root@d44b14a29991:/var/log/nginx/# tail -f error.log
+```
 
-
-## Eval 
+## Eval
 
 - Verify if you can run the container with "docker run xxx" without problems. (xxx is the name of the docker you've just built)
 
