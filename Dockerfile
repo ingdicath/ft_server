@@ -26,7 +26,8 @@ RUN ln -s /etc/nginx/sites-available/pajarito /etc/nginx/sites-enabled/pajarito 
 RUN service mysql start; \
 	echo "CREATE DATABASE pajarito_db;" | mysql -u root; \
 	echo "GRANT ALL PRIVILEGES ON *.* TO 'diana'@'localhost' IDENTIFIED BY '12345';" | mysql -u root; \ 
-    echo "FLUSH PRIVILEGES" | mysql -u root
+	echo "CREATE DATABASE phpMyAdmin" | mysql -u root; \
+	echo "FLUSH PRIVILEGES" | mysql -u root
 
 # phpmyadmin setup
 COPY ./srcs/phpMyAdmin-5.0.2-english.tar.gz .
@@ -42,10 +43,15 @@ RUN wp cli update
 WORKDIR /var/www/pajarito/wordpress
 RUN service mysql start && \
     wp core download --allow-root && \
-    wp config create --allow-root --dbhost=localhost --dbname=pajarito_db --dbuser=diana --dbpass=12345 &&\
-	wp core install --allow-root --url=https://localhost/wordpress --title="Welcome Pajarito" --admin_name=diana --admin_password=12345 --admin_email=dianitasale@gmail.com &&\
-	chmod 664 wp-config.php &&\
+    wp config create --allow-root --dbhost=localhost --dbname=pajarito_db --dbuser=diana --dbpass=12345 && \
+	mysql < /var/www/pajarito/phpmyadmin/sql/create_tables.sql && \
+	wp core install --allow-root --url=https://localhost/wordpress --title="Welcome Pajarito" --admin_name=diana --admin_password=12345 --admin_email=dianitasale@gmail.com && \
+	chmod 664 wp-config.php && \
 	wp theme --allow-root activate twentyseventeen
+
+# Sizes setup
+RUN cd /etc/php/7.3/fpm && sed -i 's/upload_max_filesize = 2M/upload_max_filesize = 15M/g' php.ini && \
+	sed -i 's/post_max_size = 8M/post_max_size = 25M/g' php.ini
 
 # Access setup
 RUN chown -R www-data:www-data /var/www/pajarito/*
@@ -58,4 +64,5 @@ EXPOSE 80 443 25
 ENTRYPOINT service php7.3-fpm start && \
 	service nginx start && \
 	service mysql start && \
+	service sendmail start && \
 	bash
