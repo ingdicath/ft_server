@@ -48,12 +48,12 @@ WORKDIR /var/www/pajarito/wordpress
 RUN service mysql start && \
     wp config create --allow-root --dbhost=localhost --dbname=pajarito_db --dbuser=diana --dbpass=12345 && \
 	wp core install --allow-root --url=https://localhost/wordpress --title="Welcome Pajarito" --admin_name=diana --admin_password=12345 --admin_email=dianitasale@gmail.com && \
-	chmod 777 wp-config.php && \
+	chmod 644 wp-config.php && \
 	wp theme --allow-root activate twentyseventeen
 
 # Access setup
 RUN chown -R www-data:www-data /var/www/pajarito/*
-RUN chmod 755 -R /var/www/pajarito/* && chmod 777 -R /var/www/pajarito/wordpress/*
+RUN chmod 755 -R /var/www/pajarito/*
 
 EXPOSE 80 443 25
 
