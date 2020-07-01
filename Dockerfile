@@ -61,5 +61,6 @@ EXPOSE 80 443 25
 CMD service php7.3-fpm start && \
 	service nginx start && \
 	service mysql start && \
+	echo "$(hostname -i) $(hostname) $(hostname).localhost" >> /etc/hosts && \
 	service sendmail start && \
 	bash
