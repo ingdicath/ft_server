@@ -22,8 +22,15 @@ The image can then be deployed to any Docker environment and executable as a con
 
 - _Container_ - the equivalent of creating a VM from a snapshot, but again, way more lightweight. Containers run the applications themselves.
 
+## Tradicional system & Docker differences
 
-## Differences between tradicional system & Docker
+- [Top 5 differences](https://www.adminschoice.com/containers-vs-vms-top-5-differences-you-must-know)
+
+<p align="center">
+<img src="images/container-vs-vms.png" width=800 >
+</p>
+
+### Other differences traditional system vs Docker
 
 <p align="center">
 <img src="images/table.png" width=800 >
